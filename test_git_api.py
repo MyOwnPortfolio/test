@@ -5,7 +5,7 @@ class TestGitApi:
 
     def test_pre_conditions(self):
         # this is token for authorization on github
-        headers = {"Authorization": "token c3b188e49a77bbfda67e68aa4624a46d2779add0"}
+        headers = {"Authorization": "token 'my_token'"}
         # this is the url and data for creating "BestQA" repository
         url = 'https://api.github.com/user/repos'
         r = requests.get(url, headers=headers)
@@ -25,7 +25,7 @@ class TestGitApi:
 
     def test_one(self):
         # this is token for authorization on github
-        headers = {"Authorization": "token c3b188e49a77bbfda67e68aa4624a46d2779add0"}
+        headers = {"Authorization": "token 'my_token'"}
         # this is the url and data for creating "BestQA" repository
         url = 'https://api.github.com/user/repos'
         data = {"name": "BestQA",
@@ -35,7 +35,7 @@ class TestGitApi:
 
     def test_two(self):
         # this is token for authorization on github
-        headers = {"Authorization": "token c3b188e49a77bbfda67e68aa4624a46d2779add0"}
+        headers = {"Authorization": "token 'my_token'"}
         url = 'https://api.github.com/repos/MyOwnPortfolio/BestQA'
         data = {"name": "BestOfTheBestQA"}
         r = requests.patch(url, headers=headers, json=data)
@@ -43,7 +43,7 @@ class TestGitApi:
 
     def test_three(self):
         # this is token for authorization on github
-        headers = {"Authorization": "token c3b188e49a77bbfda67e68aa4624a46d2779add0"}
+        headers = {"Authorization": "token 'my_token'"}
         url = 'https://api.github.com/repos/MyOwnPortfolio/BestOfTheBestQA'
         data = {"name": "BestOfTheBestQA", "description": "This is BestOfTheBestQA repository for MyOwnPortfolio"}
         r = requests.patch(url, headers=headers, json=data)
@@ -51,7 +51,7 @@ class TestGitApi:
 
     def test_four(self):
         # this is token for authorization on github
-        headers = {"Authorization": "token c3b188e49a77bbfda67e68aa4624a46d2779add0"}
+        headers = {"Authorization": "token 'my_token'"}
         url = 'https://api.github.com/repos/MyOwnPortfolio/BestOfTheBestQA/contents/file.txt'
         data = {"path": "file.txt", "message": "initial commit", "content": "dGhpcyBpcyBzb21lIHRleHQ="}
         r = requests.put(url, headers=headers, json=data)
@@ -59,14 +59,14 @@ class TestGitApi:
 
     def test_five(self):
         # this is token for authorization on github
-        headers = {"Authorization": "token c3b188e49a77bbfda67e68aa4624a46d2779add0"}
+        headers = {"Authorization": "token 'my_token'"}
         url = 'https://api.github.com/repos/MyOwnPortfolio/BestOfTheBestQA/branches'
         r = requests.get(url, headers=headers)
         assert r.status_code == 200
 
     def test_six(self):
         # this is token for authorization on github
-        headers = {"Authorization": "token c3b188e49a77bbfda67e68aa4624a46d2779add0"}
+        headers = {"Authorization": "token 'my_token'"}
         url = 'https://api.github.com/repos/MyOwnPortfolio/BestOfTheBestQA/branches/master'
         r = requests.get(url, headers=headers)
         assert r.status_code == 200
