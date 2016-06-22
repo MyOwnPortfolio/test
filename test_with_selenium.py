@@ -1,11 +1,17 @@
 from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
 
-driver = webdriver.Firefox()
-driver.get("http://www.python.org")
-assert "Python" in driver.title
-elem = driver.find_element_by_name("q")
-elem.send_keys("pycon")
-elem.send_keys(Keys.RETURN)
-assert "No results found." not in driver.page_source
-driver.close()
+
+class TestWithSelenium:
+
+    def test_contact_form(self):
+        driver = webdriver.Firefox()
+        driver.get("http://dmytrokovalenkodk.wix.com/qa-task-1")
+        driver.find_element_by_id("DrpDwnMn05label").click()
+        driver.find_element_by_id("iinjpnrhnameField").send_keys("Pedro")
+        driver.find_element_by_id("iinjpnrhemailField").send_keys("yuko@ukr.net")
+        driver.find_element_by_id("iinjpnrhsubjectField").send_keys("test")
+        driver.find_element_by_id("iinjpnrhmessageField").send_keys("test")
+        driver.find_element_by_id("iinjpnrhsubmit").click()
+        assert "Your details were sent successfully!"
+        print("test Done")
+        driver.close()
