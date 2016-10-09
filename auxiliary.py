@@ -11,45 +11,28 @@ class Checking:
         self.headers = headers
 
     def presence(self):
-        # check wherther or not smth is available. In case, when we have created or changed smth and want to check it out
-        r = requests.get(self.url, headers=self.headers)
-        j = r.json()
-
-        list_of_smth = [item[self.key] for item in j]
-        availability = self.value in list_of_smth
-
-        wait = 0
-        while availability is not True:
-            time.sleep(1)
-            wait += 1
-
-            r = requests.get(self.url, headers=self.headers)
-            j = r.json()
-
-            list_of_smth = [item[self.key] for item in j]
-            availability = self.value in list_of_smth
-            if wait > self.wait:
-                print('{0} seconds and information still unavailable'.format(self.wait))
-                assert False
+        self.checking(True)
 
     def absence(self):
-        # check wherther or not smth is unavailable. In case, when we have deleted smth and want to check it out
-        r = requests.get(self.url, headers=self.headers)
-        j = r.json()
+        self.checking(False)
 
-        list_of_smth = [item[self.key] for item in j]
-        availability = self.value not in list_of_smth
-
+    def checking(self, clause):
+        # if clause = True it means that we check whether there is the value in list
+        # the same as if we wrote:     availability = self.value in self.names_list()
+        # if clause = False it means that we check whether there isn't the value in list
+        # the same as if we wrote:     availability = self.value not in self.names_list()
+        availability = (self.value in self.names_list()) == clause
         wait = 0
+
         while availability is not True:
             time.sleep(1)
             wait += 1
+            availability = (self.value in self.names_list()) == clause
 
-            r = requests.get(self.url, headers=self.headers)
-            j = r.json()
-
-            list_of_smth = [item[self.key] for item in j]
-            availability = self.value not in list_of_smth
             if wait > self.wait:
                 print('{0} seconds and information still unavailable'.format(self.wait))
                 assert False
+
+    def names_list(self):
+        json_resp = requests.get(self.url, headers=self.headers).json()
+        return [item[self.key] for item in json_resp]

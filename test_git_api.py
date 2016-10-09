@@ -4,7 +4,7 @@ import auxiliary
 
 class TestGitApi:
 
-    token = '--------------------------------------'  # this is token for authorization on github
+    token = '1234567890123456789012345678901234567890'  # this is token for authorization on github
     headers = {"Authorization": "token %s" % token} # https://developer.github.com/v3/oauth/#web-application-flow
     basic_url = 'https://api.github.com'
 
